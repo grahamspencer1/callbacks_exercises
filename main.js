@@ -175,7 +175,7 @@ console.log( 'The total number of purchases is:', numPurchases );
   HINT(S):
   - Don't forget that 'purchases' can also be made in 'cash'!
 */
-var numCashSales;
+var numCashSales = transactions.filter(transaction => transaction.paymentMethod === 'cash' && transaction.type === 'sale').length;
 
 console.log( 'The total number of cash sales is:', numCashSales );
 
@@ -189,7 +189,7 @@ console.log( 'The total number of cash sales is:', numCashSales );
   HINT(S):
   - Make sure to exclude any 'sales' made by 'credit'!
 */
-var numCreditPurchases;
+var numCreditPurchases = transactions.filter(transaction => transaction.paymentMethod === 'credit' && transaction.type === 'purchase').length;
 
 console.log( 'The total number of credit purchases is:', numCreditPurchases );
 
