@@ -131,7 +131,9 @@ console.log( 'The total number of transactions is:', totalTransactions );
   - Not all transactions are 'sales'.
 */
 
-var numSales = transactions.filter(transaction => transaction.type === 'sale').length;
+var numSales = transactions.filter(function (transaction) {
+  return transaction.type === 'sale';
+}).length;
 
 /*
   Hey, welcome to the first question!
@@ -226,7 +228,18 @@ console.log( 'The vendors are:', allVendors );
   - The assembled array should be made up of strings, not full `transaction` objects.
   - Make sure that the resulting array *does not* include any duplicates.
 */
-var uniqueCustomers;
+
+var listOfCustomers = transactions.map(function (transactions) {
+  return transactions.customer;
+});
+
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+var customers = listOfCustomers.filter(listOfCustomers => listOfCustomers != undefined);
+
+var uniqueCustomers = customers.filter(onlyUnique);
 
 console.log( 'The unique customers are:', uniqueCustomers );
 
