@@ -234,7 +234,7 @@ var listOfCustomers = transactions.map(function (transactions) {
 });
 
 function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
+  return self.indexOf(value) === index;
 }
 
 var customers = listOfCustomers.filter(listOfCustomers => listOfCustomers != undefined);
@@ -257,7 +257,14 @@ console.log( 'The unique customers are:', uniqueCustomers );
   - There may be more than 1 'sale' that includes 5 or more items.
   - Individual transactions do not have either `name` or `numItems` properties, we'll have to add them to the output.
 */
-var bigSpenders;
+
+var bigSpenders = [];
+
+transactions.forEach(function (transaction) {
+  if (transaction.items.length >= 5 && transaction.type === 'sale') {
+    bigSpenders.push(transaction.customer, transaction.items.length);
+  }
+});
 
 console.log( 'The "big spenders" are:', bigSpenders );
 
