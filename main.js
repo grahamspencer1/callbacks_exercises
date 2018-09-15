@@ -334,7 +334,12 @@ console.log( 'The sum of all purchases is:', sumPurchases );
   HINT(S):
   - Unlike 'QUESTION 08' and 'QUESTION 09', here we're interested in both 'sale' and 'purchase' transactions.
 */
-var netProfit;
+
+var netProfit = transactions.reduce(function(transactionSum, transaction) {
+  return transactionSum + transaction.items.reduce(function (itemSum, item) {
+    return itemSum + item.price;
+  }, 0);
+}, 0);
 
 console.log( 'The net profit is:', netProfit );
 
