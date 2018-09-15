@@ -182,6 +182,7 @@ console.log( 'The total number of purchases is:', numPurchases );
 var numCashSales = transactions.filter(function (transaction) {
   return transaction.paymentMethod === 'cash' && transaction.type === 'sale';
 }).length;
+
 console.log( 'The total number of cash sales is:', numCashSales );
 
 
@@ -353,7 +354,12 @@ console.log( 'The net profit is:', netProfit );
   HINTS:
   - The result of this calculation should be a number (not an array, object, or other data type).
 */
-var mostItems;
+
+var sortedTransactions = transactions.sort (function(t1, t2) {
+  return t1.items.length - t2.items.length;
+});
+
+var mostItems = sortedTransactions[sortedTransactions.length-1].items.length;
 
 console.log( 'The most items sold in a single transaction is:', mostItems );
 
