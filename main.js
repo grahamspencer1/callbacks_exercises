@@ -163,7 +163,9 @@ console.log( 'The total number of sales is:', numSales );
 /*
   Calculate the total number of 'purchases'.
 */
-var numPurchases = transactions.filter(transaction => transaction.type === 'purchase').length;
+var numPurchases = transactions.filter(function (transaction) {
+   return transaction.type === 'purchase';
+}).length;
 
 console.log( 'The total number of purchases is:', numPurchases );
 
@@ -177,8 +179,9 @@ console.log( 'The total number of purchases is:', numPurchases );
   HINT(S):
   - Don't forget that 'purchases' can also be made in 'cash'!
 */
-var numCashSales = transactions.filter(transaction => transaction.paymentMethod === 'cash' && transaction.type === 'sale').length;
-
+var numCashSales = transactions.filter(function (transaction) {
+  return transaction.paymentMethod === 'cash' && transaction.type === 'sale';
+}).length;
 console.log( 'The total number of cash sales is:', numCashSales );
 
 
@@ -191,7 +194,9 @@ console.log( 'The total number of cash sales is:', numCashSales );
   HINT(S):
   - Make sure to exclude any 'sales' made by 'credit'!
 */
-var numCreditPurchases = transactions.filter(transaction => transaction.paymentMethod === 'credit' && transaction.type === 'purchase').length;
+var numCreditPurchases = transactions.filter(function (transaction) {
+  return transaction.paymentMethod === 'credit' && transaction.type === 'purchase';
+}).length;
 
 console.log( 'The total number of credit purchases is:', numCreditPurchases );
 
@@ -209,8 +214,13 @@ console.log( 'The total number of credit purchases is:', numCreditPurchases );
   - This array is allowed to contain duplicate values.
 */
 
-var listOfVendors = transactions.map(transactions => transactions.vendor);
-var allVendors = listOfVendors.filter(listOfVendors => listOfVendors != undefined);
+var listOfVendors = transactions.map(function (transactions) {
+  return transactions.vendor;
+});
+
+var allVendors = listOfVendors.filter(function (listOfVendors) {
+  return listOfVendors;
+});
 
 
 console.log( 'The vendors are:', allVendors );
@@ -233,13 +243,11 @@ var listOfCustomers = transactions.map(function (transactions) {
   return transactions.customer;
 });
 
-function onlyUnique(value, index, self) {
-  return self.indexOf(value) === index;
-}
+var customers = listOfCustomers.filter(function (listOfCustomers){
+  return listOfCustomers != undefined;
+});
 
-var customers = listOfCustomers.filter(listOfCustomers => listOfCustomers != undefined);
-
-var uniqueCustomers = customers.filter(onlyUnique);
+var uniqueCustomers = Array.from(new Set(customers));
 
 console.log( 'The unique customers are:', uniqueCustomers );
 
@@ -262,7 +270,7 @@ var bigSpenders = [];
 
 transactions.forEach(function (transaction) {
   if (transaction.items.length >= 5 && transaction.type === 'sale') {
-    bigSpenders.push(transaction.customer, transaction.items.length);
+    bigSpenders.push({name: transaction.customer, numItems: transaction.items.length});
   }
 });
 
@@ -278,7 +286,13 @@ console.log( 'The "big spenders" are:', bigSpenders );
   HINT(S):
   - Transactions don't have 'prices', but their 'items' do!
 */
-var sumSales;
+var firstSale = transactions.find(function (transaction) {
+  return transaction.type === 'sale';
+});
+
+var sumSales = firstSale.items.reduce(function(sum, item) {
+  return sum + item.price;
+}, 0);
 
 console.log( 'The sum of all sales is:', sumSales );
 
